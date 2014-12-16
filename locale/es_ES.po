@@ -1,0 +1,15 @@
+# 
+msgid ""
+msgstr "Content-Type: text/plain; charset=utf-8\n"
+
+msgctxt "field:commission.agent,assigned_parties:"
+msgid "Assigned Parties"
+msgstr "Terceros assignados"
+
+msgctxt "field:party.party,agent:"
+msgid "Agent"
+msgstr "Agente"
+
+msgctxt "view:party.party:"
+msgid "Commissions"
+msgstr "Comisiones"
