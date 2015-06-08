@@ -19,6 +19,14 @@ class Agent:
     assigned_parties = fields.One2Many('party.party', 'agent',
         'Assigned Parties')
 
+    @classmethod
+    def copy(cls, agents, default=None):
+        if default is None:
+            default = {}
+        default = default.copy()
+        default['assigned_parties'] = None
+        return super(Agent, cls).copy(agents, default)
+
 
 class Sale:
     __name__ = 'sale.sale'
