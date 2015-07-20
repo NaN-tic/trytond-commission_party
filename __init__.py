@@ -9,4 +9,5 @@ def register():
         Agent,
         Invoice,
         Sale,
+        Opportunity,
         module='commission_party', type_='model')

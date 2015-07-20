@@ -3,7 +3,7 @@
 from trytond.model import fields
 from trytond.pool import PoolMeta
 
-__all__ = ['Party', 'Agent', 'Invoice', 'Sale']
+__all__ = ['Party', 'Agent', 'Invoice', 'Sale', 'Opportunity']
 __metaclass__ = PoolMeta
 
 
@@ -38,6 +38,19 @@ class Sale:
             changes['agent'] = self.party.agent.id
             changes['agent.rec_name'] = self.party.agent.rec_name
         return changes
+
+
+class Opportunity:
+    __name__ = 'sale.opportunity'
+
+    def _get_sale_opportunity(self):
+        sale = super(Opportunity, self)._get_sale_opportunity()
+        if self.party and self.party.agent:
+            sale.agent = self.party.agent
+            if hasattr(sale, 'on_change_agent'):
+                for k, v in sale.on_change_agent().iteritems():
+                    setattr(sale, k, v)
+        return sale
 
 
 class Invoice:
