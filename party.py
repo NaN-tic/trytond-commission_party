@@ -45,7 +45,6 @@ class Opportunity:
         sale = super(Opportunity, self)._get_sale_opportunity()
         if self.party and self.party.agent:
             sale.agent = self.party.agent
-            sale.on_change_agent()
         return sale
 
 
