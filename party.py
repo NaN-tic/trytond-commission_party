@@ -4,16 +4,17 @@ from trytond.model import fields
 from trytond.pool import PoolMeta
 
 __all__ = ['Party', 'Agent', 'Invoice', 'Sale', 'Opportunity']
-__metaclass__ = PoolMeta
 
 
 class Party:
+    __metaclass__ = PoolMeta
     __name__ = 'party.party'
 
     agent = fields.Many2One('commission.agent', 'Agent')
 
 
 class Agent:
+    __metaclass__ = PoolMeta
     __name__ = 'commission.agent'
 
     assigned_parties = fields.One2Many('party.party', 'agent',
@@ -29,6 +30,7 @@ class Agent:
 
 
 class Sale:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.sale'
 
     @fields.depends('agent')
@@ -39,6 +41,7 @@ class Sale:
 
 
 class Opportunity:
+    __metaclass__ = PoolMeta
     __name__ = 'sale.opportunity'
 
     def _get_sale_opportunity(self):
@@ -49,6 +52,7 @@ class Opportunity:
 
 
 class Invoice:
+    __metaclass__ = PoolMeta
     __name__ = 'account.invoice'
 
     @fields.depends('agent')
