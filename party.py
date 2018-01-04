@@ -25,7 +25,7 @@ class Agent:
         if default is None:
             default = {}
         default = default.copy()
-        default['assigned_parties'] = None
+        default.setdefault('assigned_parties')
         return super(Agent, cls).copy(agents, default)
 
 
@@ -33,7 +33,7 @@ class Sale:
     __metaclass__ = PoolMeta
     __name__ = 'sale.sale'
 
-    @fields.depends('agent')
+    @fields.depends('party', 'agent')
     def on_change_party(self):
         super(Sale, self).on_change_party()
         if self.party and self.party.agent and not self.agent:
@@ -55,7 +55,7 @@ class Invoice:
     __metaclass__ = PoolMeta
     __name__ = 'account.invoice'
 
-    @fields.depends('agent')
+    @fields.depends('party', 'agent')
     def on_change_party(self):
         super(Invoice, self).on_change_party()
         if self.party and self.party.agent and not self.agent:
