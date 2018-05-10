@@ -10,6 +10,7 @@ def register():
     Pool.register(
         party.Party,
         party.Agent,
+        party.PartyCommissionAgent,
         invoice.Invoice,
         module='commission_party', type_='model')
     Pool.register(
