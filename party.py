@@ -60,10 +60,10 @@ class Agent:
         sql_where = ((partyagent.agent == self.id)
             & (partyagent.company == self.company.id))
         cursor.execute(*partyagent.select(partyagent.party, where=sql_where))
-        ids = cursor.fetchone()
+        ids = cursor.fetchall()
         if not ids:
             return []
-        return [i for i in ids]
+        return [i[0] for i in ids]
 
 
 class PartyCommissionAgent(ModelSQL, CompanyValueMixin):
