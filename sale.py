@@ -6,8 +6,7 @@ from trytond.pool import PoolMeta
 __all__ = ['Sale', 'Opportunity']
 
 
-class Sale:
-    __metaclass__ = PoolMeta
+class Sale(metaclass=PoolMeta):
     __name__ = 'sale.sale'
 
     @fields.depends('party', 'agent')
@@ -17,8 +16,7 @@ class Sale:
             self.agent = self.party.agent
 
 
-class Opportunity:
-    __metaclass__ = PoolMeta
+class Opportunity(metaclass=PoolMeta):
     __name__ = 'sale.opportunity'
 
     def _get_sale_opportunity(self):

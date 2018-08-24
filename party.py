@@ -12,8 +12,7 @@ from trytond.modules.company.model import (
 __all__ = ['Party', 'Agent', 'PartyCommissionAgent']
 
 
-class Party(CompanyMultiValueMixin):
-    __metaclass__ = PoolMeta
+class Party(CompanyMultiValueMixin, metaclass=PoolMeta):
     __name__ = 'party.party'
     agents = fields.One2Many('party.party.commission.agent', 'party', 'Agents',
          domain=[
@@ -38,8 +37,7 @@ class Party(CompanyMultiValueMixin):
         return super(Party, cls).multivalue_model(field)
 
 
-class Agent:
-    __metaclass__ = PoolMeta
+class Agent(metaclass=PoolMeta):
     __name__ = 'commission.agent'
     assigned_parties = fields.Function(fields.One2Many('party.party', None,
         'Assigned Parties'), 'get_assigned_parties')
