@@ -15,6 +15,9 @@ def register():
         module='commission_party', type_='model')
     Pool.register(
         sale.Sale,
-        sale.Opportunity,
         module='commission_party', type_='model',
         depends=['sale'])
+    Pool.register(
+        sale.Opportunity,
+        module='commission_party', type_='model',
+        depends=['sale_opportunity'])
