@@ -1,4 +1,4 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
 
@@ -9,6 +9,66 @@ msgstr "Terceros assignados"
 msgctxt "field:party.party,agent:"
 msgid "Agent"
 msgstr "Agente"
+
+msgctxt "field:party.party,agents:"
+msgid "Agents"
+msgstr "Agentes"
+
+msgctxt "field:party.party.commission.agent,agent:"
+msgid "Agent"
+msgstr "Agente"
+
+msgctxt "field:party.party.commission.agent,company:"
+msgid "Company"
+msgstr "Empresa"
+
+msgctxt "field:party.party.commission.agent,create_date:"
+msgid "Create Date"
+msgstr "Fecha de creación"
+
+msgctxt "field:party.party.commission.agent,create_uid:"
+msgid "Create User"
+msgstr "Usuario de creación"
+
+msgctxt "field:party.party.commission.agent,id:"
+msgid "ID"
+msgstr "ID"
+
+msgctxt "field:party.party.commission.agent,party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "field:party.party.commission.agent,rec_name:"
+msgid "Record Name"
+msgstr "Nombre del registro"
+
+msgctxt "field:party.party.commission.agent,write_date:"
+msgid "Write Date"
+msgstr "Usuario de creación"
+
+msgctxt "field:party.party.commission.agent,write_uid:"
+msgid "Write User"
+msgstr "Usuario de modificación"
+
+msgctxt "field:sale.configuration,agent_party:"
+msgid "Agent Party"
+msgstr "Agente del tercero"
+
+msgctxt "help:sale.configuration,agent_party:"
+msgid "Default Agent Party"
+msgstr "Agente del tercero por defecto"
+
+msgctxt "model:party.party.commission.agent,name:"
+msgid "Party Commission Agent"
+msgstr "Comisión agente tercero"
+
+msgctxt "selection:sale.configuration,agent_party:"
+msgid "Party"
+msgstr "Tercero"
+
+msgctxt "selection:sale.configuration,agent_party:"
+msgid "Shipment Party"
+msgstr "Tercero del envío"
 
 msgctxt "view:party.party:"
 msgid "Commissions"
