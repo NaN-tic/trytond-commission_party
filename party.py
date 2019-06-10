@@ -51,17 +51,28 @@ class Agent(metaclass=PoolMeta):
         return super(Agent, cls).copy(agents, default)
 
     def get_assigned_parties(self, name):
-        PartyCommissionAgent = Pool().get('party.party.commission.agent')
+        pool = Pool()
+        PartyCommissionAgent = pool.get('party.party.commission.agent')
+        Party = pool.get('party.party')
+        PartyCompany = pool.get('party.company.rel')
+
         partyagent = PartyCommissionAgent.__table__()
+        party = Party().__table__()
+        party_company = PartyCompany.__table__()
         cursor = Transaction().connection.cursor()
 
+        party_join = partyagent.join(party, condition=partyagent.party == party.id)
+        join = party_join.join(party_company,
+            condition=partyagent.party == party_company.party)
+
         sql_where = ((partyagent.agent == self.id)
-            & (partyagent.company == self.company.id))
-        cursor.execute(*partyagent.select(partyagent.party, where=sql_where))
-        ids = cursor.fetchone()
+            & (partyagent.company == self.company.id) & (party.active == True)
+            & (party_company.company == self.company.id))
+        cursor.execute(*join.select(partyagent.party, where=sql_where))
+        ids = cursor.fetchall()
         if not ids:
             return []
-        return [i for i in ids]
+        return [p[0] for p in ids]
 
 
 class PartyCommissionAgent(ModelSQL, CompanyValueMixin):
