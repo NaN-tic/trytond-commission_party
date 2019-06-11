@@ -8,6 +8,7 @@ from trytond.pyson import Eval
 from trytond import backend
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
+from sql.operators import And
 
 __all__ = ['Party', 'Agent', 'PartyCommissionAgent']
 
@@ -54,20 +55,26 @@ class Agent(metaclass=PoolMeta):
         pool = Pool()
         PartyCommissionAgent = pool.get('party.party.commission.agent')
         Party = pool.get('party.party')
-        PartyCompany = pool.get('party.company.rel')
+        TableHandler = backend.get('TableHandler')
+        exist = TableHandler.table_exist('party.company.rel')
+
+        if exist:
+            PartyCompany = pool.get('party.company.rel')
+            party_company = PartyCompany.__table__()
 
         partyagent = PartyCommissionAgent.__table__()
         party = Party().__table__()
-        party_company = PartyCompany.__table__()
         cursor = Transaction().connection.cursor()
 
-        party_join = partyagent.join(party, condition=partyagent.party == party.id)
-        join = party_join.join(party_company,
-            condition=partyagent.party == party_company.party)
-
+        join = partyagent.join(party, condition=partyagent.party == party.id)
         sql_where = ((partyagent.agent == self.id)
-            & (partyagent.company == self.company.id) & (party.active == True)
-            & (party_company.company == self.company.id))
+            & (partyagent.company == self.company.id) & (party.active == True))
+
+        if exist:
+            join = join.join(party_company,
+                condition=partyagent.party == party_company.party)
+            sql_where.append(And(party_company.company == self.company.id))
+
         cursor.execute(*join.select(partyagent.party, where=sql_where))
         ids = cursor.fetchall()
         if not ids:
