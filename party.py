@@ -56,9 +56,9 @@ class Agent(metaclass=PoolMeta):
         PartyCommissionAgent = pool.get('party.party.commission.agent')
         Party = pool.get('party.party')
         TableHandler = backend.get('TableHandler')
-        exist = TableHandler.table_exist('party.company.rel')
+        party_company_exist = TableHandler.table_exist('party_company_rel')
 
-        if exist:
+        if party_company_exist:
             PartyCompany = pool.get('party.company.rel')
             party_company = PartyCompany.__table__()
 
@@ -70,7 +70,7 @@ class Agent(metaclass=PoolMeta):
         sql_where = ((partyagent.agent == self.id)
             & (partyagent.company == self.company.id) & (party.active == True))
 
-        if exist:
+        if party_company_exist:
             join = join.join(party_company,
                 condition=partyagent.party == party_company.party)
             sql_where.append(And(party_company.company == self.company.id))
