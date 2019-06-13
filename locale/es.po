@@ -4,7 +4,7 @@ msgstr "Content-Type: text/plain; charset=utf-8\n"
 
 msgctxt "field:commission.agent,assigned_parties:"
 msgid "Assigned Parties"
-msgstr "Terceros assignados"
+msgstr "Terceros asignados"
 
 msgctxt "field:party.party,agent:"
 msgid "Agent"
