@@ -55,8 +55,7 @@ class Agent(metaclass=PoolMeta):
         pool = Pool()
         PartyCommissionAgent = pool.get('party.party.commission.agent')
         Party = pool.get('party.party')
-        TableHandler = backend.get('TableHandler')
-        party_company_exist = TableHandler.table_exist('party_company_rel')
+        party_company_exist = backend.TableHandler.table_exist('party_company_rel')
 
         if party_company_exist:
             PartyCompany = pool.get('party.company.rel')
@@ -95,16 +94,15 @@ class PartyCommissionAgent(ModelSQL, CompanyValueMixin):
     @classmethod
     def __register__(cls, module_name):
         Party = Pool().get('party.party')
-        TableHandler = backend.get('TableHandler')
         cursor = Transaction().connection.cursor()
-        exist = TableHandler.table_exist(cls._table)
+        exist = backend.TableHandler.table_exist(cls._table)
         table = cls.__table__()
         party = Party.__table__()
 
         super(PartyCommissionAgent, cls).__register__(module_name)
 
         if not exist:
-            party_h = TableHandler(Party, module_name)
+            party_h = backend.TableHandler(Party, module_name)
             if party_h.column_exist('agent'):
                 query = table.insert(
                     [table.party, table.agent],
