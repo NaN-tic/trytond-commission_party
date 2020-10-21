@@ -72,7 +72,7 @@ class Agent(metaclass=PoolMeta):
         if party_company_exist:
             join = join.join(party_company,
                 condition=partyagent.party == party_company.party)
-            sql_where.append(And(party_company.company == self.company.id))
+            sql_where &= party_company.company == self.company.id
 
         cursor.execute(*join.select(partyagent.party, where=sql_where))
         ids = cursor.fetchall()
