@@ -58,6 +58,10 @@ msgctxt "help:sale.configuration,agent_party:"
 msgid "Default Agent Party"
 msgstr "Agente del tercero por defecto"
 
+msgctxt "model:ir.action,name:act_party_form2"
+msgid "Parties"
+msgstr "Terceros"
+
 msgctxt "model:party.party.commission.agent,name:"
 msgid "Party Commission Agent"
 msgstr "Comisión agente tercero"
