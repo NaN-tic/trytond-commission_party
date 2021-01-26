@@ -31,11 +31,26 @@ class Party(CompanyMultiValueMixin, metaclass=PoolMeta):
              }))
 
     @classmethod
+    def __setup__(cls):
+        super().__setup__()
+        cls.agent.searcher = 'search_agent'
+
+    @classmethod
     def multivalue_model(cls, field):
         pool = Pool()
         if field in {'agent'}:
             return pool.get('party.party.commission.agent')
         return super(Party, cls).multivalue_model(field)
+
+    @classmethod
+    def search_agent(cls, name, clause):
+        Agent = Pool().get('commission.agent')
+        searched_parties = cls.search([('rec_name',) + tuple(clause[1:])])
+        agents = Agent.search([('party', 'in', searched_parties)])
+        parties = []
+        for agent in agents:
+            parties.extend(agent.assigned_parties)
+        return [('id', 'in', parties)]
 
 
 class Agent(metaclass=PoolMeta):
