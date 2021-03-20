@@ -8,9 +8,6 @@ from trytond.pyson import Eval
 from trytond import backend
 from trytond.modules.company.model import (
     CompanyMultiValueMixin, CompanyValueMixin)
-from sql.operators import And
-
-__all__ = ['Party', 'Agent', 'PartyCommissionAgent']
 
 
 class Party(CompanyMultiValueMixin, metaclass=PoolMeta):
